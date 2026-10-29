@@ -1,0 +1,23 @@
+services:
+  crud-example-db:
+    image: "postgres:17"
+    restart: unless-stopped
+    hostname: crud-example-db
+    container_name: crud-example-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "Pass1234"
+    volumes:
+      - crud-example-db:/var/lib/postgresql/data
+      - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+      - ./dumps:/dumps
+    networks:
+      - compose-net
+
+volumes:
+  crud-example-db:
+
+networks:
+  compose-net:
+    external: true

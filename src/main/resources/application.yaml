@@ -1,0 +1,45 @@
+server:
+  port: ${APP_PORT:1234}
+
+# SPRING
+spring:
+  application:
+    name: crud.example
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    properties:
+      hibernate:
+        default_schema: ${DB_SCHEMA:public}
+        jdbc:
+          time_zone: UTC
+          batch_size: 50
+          batch_versioned_data: true
+        order_updates: true
+        order_inserts: true
+        format_sql: false
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:crud_example_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:Pass1234}
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 60000
+      minimum-idle: 5
+      maximum-pool-size: 50
+
+logging:
+  level:
+    root: ${LOGGING_LEVEL:INFO}
+
